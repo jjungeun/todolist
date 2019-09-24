@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+// import logo from './logo.svg';
+// import './App.css';
+import listApp from './listApp';
+import createApp from './createApp';
+import updateApp from './updateApp';
+import deleteApp from './deleteApp';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class List extends Component {
+  render() {
+    return (
+      <div>
+        <Route exact path="/" component={listApp} />
+      </div>
+    );
+  }
 }
 
-export default App;
+export class Create extends Component {
+  render() {
+    return (
+      <div>
+        <Route exact path="/create" component={createApp} />
+      </div>
+    )
+  }
+}
+
+export class Update extends Component {
+  render() {
+    return (
+      <div>
+        <Route exact path="/update" component={updateApp} />
+      </div>
+    )
+  }
+}
+
+export class Delete extends Component {
+  render() {
+    return (
+      <div>
+        <Route exact path="/delete" component={deleteApp} />
+      </div>
+    )
+  }
+}
