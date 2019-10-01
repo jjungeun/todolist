@@ -1,48 +1,71 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-// import logo from './logo.svg';
-// import './App.css';
-import listApp from './listApp';
-import createApp from './createApp';
-import updateApp from './updateApp';
-import deleteApp from './deleteApp';
+import TodoTemplate from './components/TodoTemplate';
+import Form from './components/Form';
+import ItemList from './components/ItemList';
 
-export class List extends Component {
+class App extends Component {
+  id = 0
+  state = {
+    input: '',
+    todos: []
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      input: e.target.value
+    });
+  }
+
+  handleCreate = () => {
+    const { input, todos } = this.state;
+    this.setState({
+      input: '',
+      todos: todos.concat({
+        id: this.id++,
+        text: input,
+        isCheck: false
+      })
+    });
+  }
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleCreate();
+    }
+  }
+
+  handleToggle = (id) => {
+    const { todos } = this.state;
+
+    const index = todos.findIndex(todo => todo.id === id);
+    const selected = todos[index];
+    const others = [...todos];
+
+    others[index] = {
+      ...selected,
+      isCheck: !selected.isCheck
+    };
+    this.setState({
+      todos: others
+    });
+  }
+
   render() {
+    const { input, todos } = this.state;
+
     return (
-      <div>
-        <Route exact path="/" component={listApp} />
-      </div>
+      <TodoTemplate form={(
+        <Form
+          value={input}
+          onChange={this.handleChange}
+          onCreate={this.handleCreate}
+          onKeyPress={this.handleKeyPress}
+        />
+      )}>
+        <ItemList todos={todos} onToggle={this.handleToggle} />
+      </TodoTemplate>
     );
   }
 }
 
-export class Create extends Component {
-  render() {
-    return (
-      <div>
-        <Route exact path="/create" component={createApp} />
-      </div>
-    )
-  }
-}
-
-export class Update extends Component {
-  render() {
-    return (
-      <div>
-        <Route exact path="/update" component={updateApp} />
-      </div>
-    )
-  }
-}
-
-export class Delete extends Component {
-  render() {
-    return (
-      <div>
-        <Route exact path="/delete" component={deleteApp} />
-      </div>
-    )
-  }
-}
+export default App;

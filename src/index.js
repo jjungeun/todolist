@@ -1,21 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
-import { List, Create, Update, Delete } from './App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Header from './Header.js';
 
 ReactDOM.render(
-  <Router>
-    <div>
-      <Header />
-      <Route exact path="/" component={List} />
-      <Route path="/create" component={Create} />
-      <Route path="/update" component={Update} />
-      <Route path="/delete" component={Delete} />
-    </div>
-  </Router>,
+  <div>
+    <App />
+  </div>
+  ,
   document.getElementById('root')
 );
 
