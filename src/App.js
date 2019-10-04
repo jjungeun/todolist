@@ -4,7 +4,7 @@ import Form from './components/Form';
 import ItemList from './components/ItemList';
 
 class App extends Component {
-  id = 0
+  id = 1
   state = {
     input: '',
     todos: []
@@ -50,19 +50,34 @@ class App extends Component {
     });
   }
 
+  handelRemove = (id) => {
+    const { todos } = this.state;
+
+    this.setState({
+      todos: todos.filter(todo => todo.id !== id)
+    });
+  }
+
   render() {
     const { input, todos } = this.state;
+    const {
+      handleChange,
+      handleCreate,
+      handleKeyPress,
+      handleToggle,
+      handelRemove
+    } = this;
 
     return (
       <TodoTemplate form={(
         <Form
           value={input}
-          onChange={this.handleChange}
-          onCreate={this.handleCreate}
-          onKeyPress={this.handleKeyPress}
+          onChange={handleChange}
+          onCreate={handleCreate}
+          onKeyPress={handleKeyPress}
         />
       )}>
-        <ItemList todos={todos} onToggle={this.handleToggle} />
+        <ItemList todos={todos} onToggle={handleToggle} onRemove={handelRemove} />
       </TodoTemplate>
     );
   }
