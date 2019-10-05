@@ -8,8 +8,7 @@ class Item extends Component {
   }
 
   render() {
-    const { text, isCheck, id, onToggle, onRemove } = this.props;
-    console.log(id);
+    const { text, isCheck, id, color, onToggle, onRemove } = this.props;
     return (
       <div className="todo-item" onClick={() => onToggle(id)}>
         <div className="remove" onClick={(e) => {
@@ -17,11 +16,11 @@ class Item extends Component {
           onRemove(id)
         }
         }>&times;</div>
-        <div className={`todo-text ${isCheck ? 'isCheck' : ''}`}>
+        <div style={{ color }} className={`todo-text ${isCheck && 'isCheck'}`}>
           <div>{text}</div>
         </div>
         {
-          isCheck && (<div className="check-mark">✓</div>)
+          isCheck && (<div className="check-mark">&#x2713;</div>)
         }
       </div>
     );

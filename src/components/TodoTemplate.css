@@ -1,8 +1,8 @@
 .todo-list-template {
   background: white;
   width: 512px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* ê·¸ë¦¼ì */
-  margin: 0 auto; /* í˜ì´ì§€ ì¤‘ì•™ ì •ë ¬ */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* ê·¸ë¦¼? */
+  margin: 0 auto; /* ?˜?´ì§? ì¤‘ì•™ ? •? ¬ */
   margin-top: 4rem;
 }
 
@@ -22,4 +22,9 @@
 
 .todos-wrapper {
   min-height: 5rem;
+}
+
+.palette-wrapper {
+  padding: 1rem;
+  background: #f1f3f5;
 }

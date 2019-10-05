@@ -1,7 +1,7 @@
 .todo-item {
   padding: 1rem;
   display: flex;
-  align-items: center; /* ì„¸ë¡œ ê°€ìš´ë° ì •ë ¬ */
+  align-items: center; /* ¼¼·Î °¡¿îµ¥ Á¤·Ä */
   cursor: pointer;
   transition: all 0.15s;
   user-select: none;
@@ -11,12 +11,12 @@
   background: #e3fafc;
 }
 
-/* todo-item ì— ë§ˆìš°ìŠ¤ê°€ ìˆì„ë•Œë§Œ .remove ë³´ì´ê¸° */
+/* todo-item ¿¡ ¸¶¿ì½º°¡ ÀÖÀ»¶§¸¸ .remove º¸ÀÌ±â */
 .todo-item:hover .remove {
   opacity: 1;
 }
 
-/* todo-item ì‚¬ì´ì— ìœ— í…Œë‘ë¦¬ */
+/* todo-item »çÀÌ¿¡ À­ Å×µÎ¸® */
 .todo-item + .todo-item {
   border-top: 1px solid #f1f3f5;
 }
@@ -30,7 +30,7 @@
 }
 
 .todo-text {
-  flex: 1; /* ì²´í¬, ì—‘ìŠ¤ë¥¼ ì œì™¸í•œ ê³µê°„ ë‹¤ ì±„ìš°ê¸° */
+  flex: 1; /* Ã¼Å©, ¿¢½º¸¦ Á¦¿ÜÇÑ °ø°£ ´Ù Ã¤¿ì±â */
   word-break: break-all;
 }
 
