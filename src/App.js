@@ -3,16 +3,30 @@ import TodoTemplate from './components/TodoTemplate';
 import Form from './components/Form';
 import ItemList from './components/ItemList';
 import Palette from './components/Palette';
+import { fire, createFireDB, readFireDB, deleteFireDB } from './Firebase';
 
 const colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6']
 
 class App extends Component {
-  id = 1
-  state = {
-    input: '',
-    todos: [],
-    color: '#343a40'
+  constructor() {
+    super();
+    this.id = 1;
+    this.state = {
+      input: '',
+      todos: [],
+      color: '#343a40'
+    };
+    fire();
   }
+
+  // componentDidMount() {
+  //   readFireDB().then(res => {
+  //     console.log(res);
+  //     // this.setState({
+  //     //   todos: res
+  //     // });
+  //   })
+  // }
 
   handleChange = (e) => {
     this.setState({
@@ -22,6 +36,7 @@ class App extends Component {
 
   handleCreate = () => {
     const { input, todos, color } = this.state;
+    createFireDB(this.id, input, false, color);
     this.setState({
       input: '',
       todos: todos.concat({
@@ -57,7 +72,7 @@ class App extends Component {
 
   handelRemove = (id) => {
     const { todos } = this.state;
-
+    deleteFireDB(id);
     this.setState({
       todos: todos.filter(todo => todo.id !== id)
     });
