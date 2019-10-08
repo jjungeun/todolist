@@ -14,7 +14,7 @@ const firebaseConfig = {
 };
 
 export const fire = () => {
-  if ( !firebase.apps.length ){
+  if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
   database = firebase.database();
@@ -36,13 +36,13 @@ export const createFireDB = (id, text, isCheck, color) => {
 }
 
 export const readFireDB = () => {
-  return database.ref('/').once('value')
+  return database.ref().child('todoItem').once('value');
 }
 
 export const updateFireDB = (id) => {
   database.ref().child('todoItem').once('value', (snapshot) => {
     snapshot.forEach((child) => {
-      if(child.val().id === id) {
+      if (child.val().id === id) {
         const updateChild = child.val();
         child.ref.set({
           id: updateChild.id,
@@ -59,7 +59,7 @@ export const updateFireDB = (id) => {
 export const deleteFireDB = (id) => {
   database.ref().child('todoItem').once('value', (snapshot) => {
     snapshot.forEach((child) => {
-      if(child.val().id === id) {
+      if (child.val().id === id) {
         child.ref.remove();
         return;
       }

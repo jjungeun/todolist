@@ -8,25 +8,29 @@ import { fire, createFireDB, readFireDB, deleteFireDB } from './Firebase';
 const colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6']
 
 class App extends Component {
+
   constructor() {
     super();
+    fire();
     this.id = 1;
     this.state = {
       input: '',
       todos: [],
       color: '#343a40'
     };
-    fire();
   }
 
-  // componentDidMount() {
-  //   readFireDB().then(res => {
-  //     console.log(res);
-  //     // this.setState({
-  //     //   todos: res
-  //     // });
-  //   })
-  // }
+  componentWillMount() {
+    readFireDB().then(res => {
+      let todoList = []
+      res.forEach((child) => {
+        todoList.push(child.val());
+      })
+      this.setState({
+        todos: todoList
+      })
+    });
+  }
 
   handleChange = (e) => {
     this.setState({
