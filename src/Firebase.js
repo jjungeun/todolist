@@ -20,19 +20,20 @@ export const fire = () => {
   database = firebase.database();
 }
 
-export const createFireDB = (id, text, isCheck, color) => {
+export const createFireDB = (text, isCheck, color) => {
+  var newItemKey = database.ref('/').child('todoItem').push().key;
   var addTodo = {
-    id: id,
+    id: newItemKey,
     text: text,
     isCheck: isCheck,
     color: color
   };
 
-  var newItemKey = database.ref('/').child('todoItem').push().key;
   var updates = {};
   updates['/todoItem/' + newItemKey] = addTodo;
+  database.ref().update(updates);
 
-  return database.ref().update(updates);
+  return newItemKey;
 }
 
 export const readFireDB = () => {
@@ -53,7 +54,7 @@ export const updateFireDB = (id) => {
         return;
       }
     });
-  })
+  });
 }
 
 export const deleteFireDB = (id) => {

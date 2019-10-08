@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './Item.css';
-import { updateFireDB } from '../Firebase';
+// import { updateFireDB } from '../Firebase';
 
 class Item extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.props.isCheck !== nextProps.isCheck;
-  }
-
-  componentDidUpdate() {
-    updateFireDB(this.props.id);
   }
 
   render() {

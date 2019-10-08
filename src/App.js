@@ -3,7 +3,7 @@ import TodoTemplate from './components/TodoTemplate';
 import Form from './components/Form';
 import ItemList from './components/ItemList';
 import Palette from './components/Palette';
-import { fire, createFireDB, readFireDB, deleteFireDB } from './Firebase';
+import { fire, createFireDB, readFireDB, updateFireDB, deleteFireDB } from './Firebase';
 
 const colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6']
 
@@ -12,7 +12,7 @@ class App extends Component {
   constructor() {
     super();
     fire();
-    this.id = 1;
+    this.id = '';
     this.state = {
       input: '',
       todos: [],
@@ -40,11 +40,11 @@ class App extends Component {
 
   handleCreate = () => {
     const { input, todos, color } = this.state;
-    createFireDB(this.id, input, false, color);
+    const id = createFireDB(input, false, color);
     this.setState({
       input: '',
       todos: todos.concat({
-        id: this.id++,
+        id: id,
         text: input,
         isCheck: false,
         color
@@ -64,6 +64,8 @@ class App extends Component {
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const others = [...todos];
+
+    updateFireDB(id);
 
     others[index] = {
       ...selected,
