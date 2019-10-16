@@ -459,19 +459,84 @@ const modArray = array.map(item => item.id === 1
 	? ({ ...item, text:'Korea' }) : item)
 ```
 
-여기서도 제거할 때와 마찬가지로 App에서 update로직을 수행한다. 다만 다른 것은 Item에서 ```editMode```와 같이 수정 전과 후를 알 수 있는 변수를 state에 정의하고 그에 따라 처리를 해준다. 그래서 componentDidUpdate에서도 ```prevState.editMode```와 ```prevState.editMode```를 가지고 setState를 할지 onUpdate를 할지 분기해준다.
+여기서도 제거할 때와 마찬가지로 App에서 update로직을 수행한다. 다만 다른 것은 Item에서 ```editMode```와 같이 수정 전과 후를 알 수 있는 변수를 state에 정의하고 그에 따라 처리를 해준다. 그래서 componentDidUpdate에서도 ```prevState.editMode```와 ```this.state.editMode```를 가지고 setState를 할지 onUpdate를 할지 분기해준다.
 
 
 
-### 불변성
+### 불변성을 지키는 이유
+
+여러가지 기능에 따라 많은 컴포넌트가 있는 경우, 한 컴포넌트가 업데이트 됐다고 해서 다른 컴포넌트들까지 리렌더링이 될 필요는 없다. 실제로, 다른 컴포넌트들까지 변화가 일어나진 않지만 Virtual DOM에 리렌더링 되는 자원까지도 아끼기 위해 우리는 위에서 shouldComponentUpdate LifeCycle API를 사용하였다.
+
+이렇게 변화가 필요하지 않을 때는 render함수가 호출되지 않는데, 어떻게 이렇게 간단히 구현이 된걸까?
+
+그 이유는 바로 **불변성을 지켜주었기 떄문**이다.
+
+불변성을 우선 알아보자. 배열을 수정하는 경우이다.
+
+```
+const array = [1,2,3,4];
+const sameArray = array;
+sameArray.push(5);
+
+console.log(array !== sameArray)	//false
+```
+
+```sameArray = array```를했기 때문에 배열이 복사된것이 아니라  레퍼런스만 추가된 것이다. 한마디로 같은 객체를 가리키고 있는 것이다. 여기서 불변성을 유지하려면 ```const sameArray = [...array, 5]``` 이렇게 하면 된다. 
+
+이는 객체를 다룰때도 마찬가지이다.
+
+```
+const object = {
+	foo: 'hello',
+	bar: 'world'
+};
+
+// NO
+const sameObject = object;
+sameObject.baz = 'bye';
+
+// YES
+const diffObject = {
+	...object,
+	baz: 'bye'
+};
+```
 
 
 
+### 최적화
+
+각 컴포넌트마다 ```shouldComponentUpdate```를 구현하여 최적화를 해본다.
 
 
 
+### TODO
 
+- 스타일링
 
+  가장 기본적인 CSS를 다뤄보자.
 
+- 상태 관리
 
+  APP => infoList => info와 같이 데이터가 한방향으로 전달되는 간단한 프로젝트가 아닌 state가 매우 복잡해지고 업데이트되는 로직이 굉장히 복잡해 졌을 때를 위해 사용하는 ```Redux```와 ```MobX```도 사용해 보자.
+
+- 불변성 유지
+
+  어렵진 않지만 데이터가 깊어질 때 쉽게 불변성을 유지하기 위한 ```Immutable.js```나 ```Immer```라이브러리도 사용해본다.
+
+- 라우팅
+
+  single page webapp이 아닌 주소에 따라 다른 뷰를 보여주어야 할 경우, ```react-router``` 또는 ```Next.js``` 라우터를 사용해 보자.
+
+- 테스팅
+
+  단순히 프로젝트를 구현하는것에서 테스팅까지 해보는 작업을 해본다. ```Jest와 Enzyme```를 사용한 컴포넌트 테스팅을 해보자.
+
+- 타입 시스템
+
+  좀더 체계적인 코드를 작성하기 위해서 TypeScript를 사용하거나 Flow를 사용할 수 있다.
+
+- 프로젝트
+
+  회사의 직원들을 위한 웹을 만들어본다! 우선 게시판에서 시작해서 다양한 기능을 추가해 보자!
 
