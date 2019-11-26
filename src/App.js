@@ -21,7 +21,7 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     readFireDB().then(res => {
       let todoList = []
       res.forEach((child) => {
@@ -127,8 +127,9 @@ class App extends Component {
       );
     } else {
       return (
-        <>
-        </>
+        <div >
+          <h1 align="center">Loading...</h1>
+        </div>
       );
     }
   }
