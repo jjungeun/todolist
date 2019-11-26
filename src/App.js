@@ -14,6 +14,7 @@ class App extends Component {
     fire();
     this.id = '';
     this.state = {
+      isLoading: false,
       input: '',
       todos: [],
       color: '#343a40'
@@ -27,7 +28,8 @@ class App extends Component {
         todoList.push(child.val());
       })
       this.setState({
-        todos: todoList
+        todos: todoList,
+        isLoading: true
       })
     });
   }
@@ -91,7 +93,7 @@ class App extends Component {
   }
 
   render() {
-    const { input, todos, color } = this.state;
+    const { isLoading, input, todos, color } = this.state;
     const {
       handleChange,
       handleCreate,
@@ -100,29 +102,35 @@ class App extends Component {
       handelRemove,
       handelSelect
     } = this;
-
-    return (
-      <TodoTemplate
-        form={(
-          <Form
-            value={input}
-            onChange={handleChange}
-            onCreate={handleCreate}
-            onKeyPress={handleKeyPress}
-            color={color}
-          />
-        )}
-        palette={(
-          <Palette
-            colors={colors}
-            selected={color}
-            onSelect={handelSelect}
-          />
-        )}
-      >
-        <ItemList todos={todos} onToggle={handleToggle} onRemove={handelRemove} />
-      </TodoTemplate>
-    );
+    if (isLoading) {
+      return (
+        <TodoTemplate
+          form={(
+            <Form
+              value={input}
+              onChange={handleChange}
+              onCreate={handleCreate}
+              onKeyPress={handleKeyPress}
+              color={color}
+            />
+          )}
+          palette={(
+            <Palette
+              colors={colors}
+              selected={color}
+              onSelect={handelSelect}
+            />
+          )}
+        >
+          <ItemList todos={todos} onToggle={handleToggle} onRemove={handelRemove} />
+        </TodoTemplate>
+      );
+    } else {
+      return (
+        <>
+        </>
+      );
+    }
   }
 }
 
