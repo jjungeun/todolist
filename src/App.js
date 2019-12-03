@@ -8,7 +8,6 @@ import { fire, createFireDB, readFireDB, updateFireDB, deleteFireDB } from './Fi
 const colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6']
 
 class App extends Component {
-
   constructor() {
     super();
     fire();
@@ -102,36 +101,33 @@ class App extends Component {
       handelRemove,
       handelSelect
     } = this;
-    if (isLoading) {
-      return (
-        <TodoTemplate
-          form={(
-            <Form
-              value={input}
-              onChange={handleChange}
-              onCreate={handleCreate}
-              onKeyPress={handleKeyPress}
-              color={color}
-            />
-          )}
-          palette={(
-            <Palette
-              colors={colors}
-              selected={color}
-              onSelect={handelSelect}
-            />
-          )}
-        >
+    return (
+      <TodoTemplate
+        form={(
+          <Form
+            value={input}
+            onChange={handleChange}
+            onCreate={handleCreate}
+            onKeyPress={handleKeyPress}
+            color={color}
+          />
+        )}
+        palette={(
+          <Palette
+            colors={colors}
+            selected={color}
+            onSelect={handelSelect}
+          />
+        )}
+      >
+        {isLoading ? (
           <ItemList todos={todos} onToggle={handleToggle} onRemove={handelRemove} />
-        </TodoTemplate>
-      );
-    } else {
-      return (
-        <div >
-          <h1 align="center">Loading...</h1>
-        </div>
-      );
-    }
+        ) : (
+            <h1 align="center">Loading...</h1>
+          )}
+
+      </TodoTemplate>
+    );
   }
 }
 
