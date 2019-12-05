@@ -41,20 +41,9 @@ export const readFireDB = () => {
 }
 
 export const updateFireDB = (id) => {
-  database.ref().child('todoItem').once('value', (snapshot) => {
-    snapshot.forEach((child) => {
-      if (child.val().id === id) {
-        child.ref.transaction(function (data) {
-          if (data !== null)
-            return {
-              id: data.id,
-              text: data.text,
-              isCheck: !data.isCheck,
-              color: data.color
-            };
-        })
-      }
-    });
+  var itemRef = database.ref('todoItem/' + id + '/isCheck');
+  itemRef.transaction((currentData) => {
+    return !currentData;
   });
 }
 

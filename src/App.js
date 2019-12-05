@@ -61,13 +61,12 @@ class App extends Component {
   }
 
   handleToggle = (id) => {
+    updateFireDB(id);
     const { todos } = this.state;
 
     const index = todos.findIndex(todo => todo.id === id);
     const selected = todos[index];
     const others = [...todos];
-
-    updateFireDB(id);
 
     others[index] = {
       ...selected,
