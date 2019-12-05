@@ -4,6 +4,7 @@ import Form from './components/Form';
 import ItemList from './components/ItemList';
 import Palette from './components/Palette';
 import { fire, createFireDB, readFireDB, updateFireDB, deleteFireDB } from './Firebase';
+import './App.scss';
 
 const colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6']
 
@@ -123,7 +124,19 @@ class App extends Component {
         {isLoading ? (
           <ItemList todos={todos} onToggle={handleToggle} onRemove={handelRemove} />
         ) : (
-            <h1 align="center">Loading...</h1>
+            <div>
+              <div id="container">
+                <div id="sticks">
+                  <div className="stick"></div>
+                  <div className="stick"></div>
+                  <div className="stick"></div>
+                  <div className="stick"></div>
+                  <div className="stick"></div>
+                  <div className="stick"></div>
+                </div>
+                <h1>Loading...</h1>
+              </div>
+            </div>
           )}
 
       </TodoTemplate>
