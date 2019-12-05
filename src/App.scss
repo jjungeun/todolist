@@ -1,6 +1,6 @@
 $text_color: #22b8cf;
 $stick_color: #22b8cf; //Changes the colour of all sticks
-$stick_length: 34px; //Changes length of all sticks
+$stick_length: 30px; //Changes length of all sticks
 $stick_distance: -8px; //Changes distance between sticks (will need editing after 30px)
 
 
@@ -26,6 +26,10 @@ h1 {
   width:180px;
   margin:auto;
   vertical-align: middle;
+}
+
+#sticks{
+  padding-left: 20px;
 }
 
 .stick {
